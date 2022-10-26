@@ -1,5 +1,6 @@
 
-data/
+data/local/
+data/raw/
 *.DS_Store
 # Created by 
 https://www.toptal.com/developers/gitignore/api/macos,python,jupyternotebooks
