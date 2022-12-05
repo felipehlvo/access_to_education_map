@@ -22,8 +22,14 @@ def plot_map(city_name, metric):
 
     fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
                            mapbox_style="open-street-map", opacity=0.5, center=center, zoom=9.5,
-                           hover_data=["city_name"], width=1000, height=800, labels={metric: "Supply of High School Teachers"})
-    fig.update_layout(title_text="title", margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=800)
+                           hover_data=["city_name"], width=1000, height=800, labels={metric: "Supply of High School Teachers"},
+                           color_continuous_scale="RdBu", )
+    fig.update_layout(
+        title_text="title", 
+        margin={"r": 0, "t": 0, "l": 0, "b": 0}, 
+        height=800,
+        geo_scope = "south america")
+    fig.update_traces(marker_line_width=0)
     st.plotly_chart(fig, use_container_width=True)
 
 access_df = load_data()
@@ -31,6 +37,10 @@ access_df = load_data()
 
 
 # col1, col2 = st.columns(2)
+
+# App components
+st.title("Access to Public High Schools in Brazil")
+st.markdown("This is a dashboard measuring the access to public high schools in each neighborhood in Brazil. The data was collected from the Brazilian Institute of Geography and Statistics (IBGE). See more details about the methods here.")
 
 city = st.selectbox("Select a city", access_df["city_name"].unique())
 
