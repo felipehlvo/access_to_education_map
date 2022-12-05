@@ -1,7 +1,7 @@
 pandas
 geopandas
 numpy
-matplotlib.pyplot
-plotly.express
+matplotlib
+plotly
 shapely
 streamlit
