@@ -11,6 +11,9 @@ st.set_page_config(layout="wide")
 
 @st.cache
 def load_data():
+    '''
+    Load data from Google Cloud Storage
+    '''
     key = "1B5lf4kxcBmtVUZppMgpcEh5RrJHrO9OG"
     access_df = pd.read_csv(
         f'gs://capstone_access_data/access_df.csv', index_col=0)
@@ -21,6 +24,10 @@ def load_data():
 
 
 def plot_map(city_name, metric):
+    '''
+    Plots the map of a city with the metric of interest
+    '''
+    # Get subset of data
     subset_df = access_df[access_df["microregion_name"] ==
                           access_df[access_df["city_name"] == city_name]["microregion_name"].values[0]]
     # Get latitude and longitude of the first observation
@@ -62,23 +69,23 @@ def plot_map(city_name, metric):
     fig.update_traces(marker_line_width=0)
     st.plotly_chart(fig, use_container_width=True)
 
-
+# Loading the data
 access_df = load_data()
-
-
-# col1, col2 = st.columns(2)
 
 # App components
 st.title("Access to Public High Schools in Brazil")
 st.markdown("This is a dashboard measuring the access to public high schools in each neighborhood in Brazil. The data was collected from the Brazilian Institute of Geography and Statistics (IBGE). See more details in the [GitHub repository](https://github.com/felipehlvo/access_to_education_map)")
 st.markdown("Interesting cities to try: Campinas, Rio de Janeiro, São Paulo")
 
-
+# Selection of the city using a dropdown
 city = st.selectbox("Select a city", access_df["city_name"].unique())
+
 
 metric_dict = {"Accessibility to Public High Schools": "3sfca_n_classes", "Average Montly Earnings (R$)": "avg_monthly_earnings",
                "Number of people aged 15 to 17": "n_people_15to17_alternative"}
 
+# Selection of metric
 metric = st.selectbox("Select a metric", metric_dict.keys())
 
+# Plot map
 plot_map(city, metric_dict[metric])
