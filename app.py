@@ -27,20 +27,38 @@ def plot_map(city_name, metric):
     center = {"lat": subset_df["geometry"].iloc[0].centroid.y,
               "lon": subset_df["geometry"].iloc[0].centroid.x}
 
+    range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
+
+
     fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
-                               mapbox_style="open-street-map", opacity=0.5, center=center, zoom=9.5,
+                               mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
                                hover_data=["neighborhood_name"],
                                width=1000, height=800,
                                labels={
-                                   "3sfca_n_teachers": "Supply of High School Teachers",
+                                   "3sfca_n_teachers": "Accessibility",
+                                   "3sfca_n_classes": "Accessibility",
                                    "neighborhood_name": "Neighborhood",
                                    "avg_monthly_earnings": "Average Monthly Earnings"},
-                               color_continuous_scale="RdYlGn", range_color=(access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)))
+                               color_continuous_scale="RdYlGn", range_color=range_color)
     fig.update_layout(
+        # Figure style
         title_text="title",
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         height=800,
-        geo_scope="south america")
+        geo_scope="south america", 
+        
+        # Colorbar style
+        coloraxis_colorbar=dict(
+        yanchor="bottom",
+        y=0.01,
+        xanchor="left",
+        x=0.01,
+        len = .3,
+        tickvals=range_color,
+        ticktext=["Low", "High"],
+        ))
+
+    
     fig.update_traces(marker_line_width=0)
     st.plotly_chart(fig, use_container_width=True)
 
@@ -52,16 +70,15 @@ access_df = load_data()
 
 # App components
 st.title("Access to Public High Schools in Brazil")
-st.markdown("This is a dashboard measuring the access to public high schools in each neighborhood in Brazil. The data was collected from the Brazilian Institute of Geography and Statistics (IBGE). See more details about the methods here.")
+st.markdown("This is a dashboard measuring the access to public high schools in each neighborhood in Brazil. The data was collected from the Brazilian Institute of Geography and Statistics (IBGE). See more details in the [GitHub repository](https://github.com/felipehlvo/access_to_education_map)")
 st.markdown("Interesting cities to try: Campinas, Rio de Janeiro, São Paulo")
+
 
 city = st.selectbox("Select a city", access_df["city_name"].unique())
 
-metric = st.selectbox("Select a metric", [
-                      "Supply of High School Teachers", "Average Income", "Number of potential high-schoolers"])
+metric_dict = {"Accessibility to Public High Schools": "3sfca_n_classes", "Average Montly Earnings (R$)": "avg_monthly_earnings",
+               "Number of people aged 15 to 17": "n_people_15to17_alternative"}
 
-metric_dict = {"Supply of High School Teachers": "3sfca_n_teachers", "Average Income": "avg_monthly_earnings",
-               "Number of potential high-schoolers": "n_people_15to17_alternative"}
-
+metric = st.selectbox("Select a metric", metric_dict.keys())
 
 plot_map(city, metric_dict[metric])
