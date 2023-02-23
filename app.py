@@ -75,8 +75,8 @@ def plot_map(city_name, metric):
 
     
     fig.update_traces(
-        marker_line_width=0,
-        hovertemplate = 'GDP: %{x} <br>Life Expectancy: %{y}')
+        marker_line_width=0
+        )
     st.plotly_chart(fig, use_container_width=True)
 
 
