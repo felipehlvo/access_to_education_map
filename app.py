@@ -9,12 +9,12 @@ import streamlit as st
 st.set_page_config(layout="wide")
 
 
-@st.cache
+@st.cache_data
 def load_data():
     '''
     Load data from Google Cloud Storage
     '''
-    key = "1B5lf4kxcBmtVUZppMgpcEh5RrJHrO9OG"
+    #key = "1B5lf4kxcBmtVUZppMgpcEh5RrJHrO9OG"
     access_df = pd.read_csv(
         f'gs://capstone_access_data/access_df.csv', index_col=0)
     access_df = gpd.GeoDataFrame(
@@ -36,16 +36,11 @@ def plot_map(city_name, metric):
 
     range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
 
-
     fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
                                hover_data=["neighborhood_name"],
                                width=1000, height=800,
-                               labels={
-                                   "3sfca_n_teachers": "Accessibility",
-                                   "3sfca_n_classes": "Accessibility",
-                                   "neighborhood_name": "Neighborhood",
-                                   "avg_monthly_earnings": "Average Monthly Earnings"},
+                               labels=print_name,
                                color_continuous_scale="RdYlGn", range_color=range_color)
     fig.update_layout(
         # Figure style
@@ -69,6 +64,22 @@ def plot_map(city_name, metric):
     fig.update_traces(marker_line_width=0)
     st.plotly_chart(fig, use_container_width=True)
 
+
+# Mapping of variable names to print-friendly names
+print_name = {
+"n_teachers":"Number of teachers",
+"n_students":"Number of students",
+"n_classes":"Number of classes",
+"A": "Accessibility",
+"Q": "Quality",
+"H": "Quality-adjusted Accessibility",
+"avg_monthly_earnings": "Monthly Income (R$)",
+"density": "Density (people/km^2)",
+"pct_white": "% White",}
+
+inv_print_name = {v: k for k, v in print_name.items()}
+
+
 # Loading the data
 access_df = load_data()
 
@@ -81,11 +92,10 @@ st.markdown("Interesting cities to try: Campinas, Rio de Janeiro, São Paulo")
 city = st.selectbox("Select a city", access_df["city_name"].unique())
 
 
-metric_dict = {"Accessibility to Public High Schools": "3sfca_n_classes", "Average Montly Earnings (R$)": "avg_monthly_earnings",
-               "Number of people aged 15 to 17": "n_people_15to17_alternative"}
+metric_list = [print_name["A"], print_name["Q"], print_name["H"]]
 
 # Selection of metric
-metric = st.selectbox("Select a metric", metric_dict.keys())
+metric = st.selectbox("Select a metric", metric_list)
 
 # Plot map
-plot_map(city, metric_dict[metric])
+plot_map(city, inv_print_name[metric])
