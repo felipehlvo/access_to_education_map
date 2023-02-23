@@ -45,7 +45,7 @@ def plot_map(city_name, metric):
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
                                hover_data=["neighborhood_name"],
                                width=1000, height=800,
-                               labels=print_name,
+                               labels=print_name_br,
                                color_continuous_scale="RdYlGn", 
                                range_color=range_color)
     fig.update_layout(
@@ -85,8 +85,20 @@ print_name = {
 "density": "Density (people/km^2)",
 "pct_white": "% White",}
 
+print_name_br = {
+"n_teachers":"Número de professores",
+"n_students":"Número de estudantes",
+"n_classes":"Número de turmas",
+"A": "Acesso",
+"Q": "Qualidate",
+"H": "Acessor ajustado pela qualidade",
+"avg_monthly_earnings": "Renda mensal (R$)",
+"density": "Densidade (habitantes/km^2)",
+"pct_white": "% brancos",}
+
 inv_print_name = {v: k for k, v in print_name.items()}
 
+inv_print_name_br = {v: k for k, v in print_name_br.items()}
 
 # Loading the data
 access_df = load_data()
@@ -100,11 +112,11 @@ st.markdown("Cidades interessantes para testar: Campinas, Rio de Janeiro, São P
 city = st.selectbox("Selectione uma cidade", access_df["city_name"].unique())
 
 
-metric_list = [print_name["A"], print_name["Q"], print_name["H"], 
-print_name["avg_monthly_earnings"], print_name["pct_white"], print_name["density"]]
+metric_list = [print_name_br["A"], print_name_br["Q"], print_name_br["H"], 
+print_name_br["avg_monthly_earnings"], print_name_br["pct_white"], print_name_br["density"]]
 
 # Selection of metric
 metric = st.selectbox("Selecione uma métrica", metric_list)
 
 # Plot map
-plot_map(city, inv_print_name[metric])
+plot_map(city, inv_print_name_br[metric])
