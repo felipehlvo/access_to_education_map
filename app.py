@@ -64,7 +64,7 @@ def plot_map(city_name, metric):
         len = .3,
         tickvals=range_color,
         ticktext=["Low", "High"]
-        )
+        ))
 
     
     fig.update_traces(
