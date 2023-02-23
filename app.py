@@ -30,25 +30,19 @@ def plot_map(city_name, metric):
     # Get subset of data
     subset_df = access_df[access_df["microregion_name"] ==
                           access_df[access_df["city_name"] == city_name]["microregion_name"].values[0]]
-
-    # Get state of city to plot metric relative to other cities in state. 
-    state_df = access_df[access_df["state"] ==
-                          access_df[access_df["city_name"] == city_name]["state"].values[0]]
-
     # Get latitude and longitude of the first observation
     center = {"lat": subset_df["geometry"].iloc[0].centroid.y,
               "lon": subset_df["geometry"].iloc[0].centroid.x}
 
     range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
 
-    fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=state_df[metric].rank(pct=True),
+    fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
                                hover_data=["neighborhood_name"],
                                width=1000, height=800,
                                labels=print_name,
                                color_continuous_scale="RdYlGn", 
-                               #range_color=range_color
-                               )
+                               range_color=range_color)
     fig.update_layout(
         # Figure style
         title_text="title",
