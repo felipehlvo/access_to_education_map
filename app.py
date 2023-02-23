@@ -63,15 +63,8 @@ def plot_map(city_name, metric):
         x=0.01,
         len = .3,
         tickvals=range_color,
-        ticktext=["Low", "High"],
-
-        # Hover data
-        hoverlabel=dict(
-        bgcolor="white",
-        font_size=16,
-        font_family="Rockwell"
-    )
-        ))
+        ticktext=["Low", "High"]
+        )
 
     
     fig.update_traces(
