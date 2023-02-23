@@ -119,4 +119,4 @@ print_name_br["avg_monthly_earnings"], print_name_br["pct_white"], print_name_br
 metric = st.selectbox("Selecione uma métrica", metric_list)
 
 # Plot map
-#plot_map(city, inv_print_name_br[metric])
+plot_map(city, inv_print_name_br[metric])
