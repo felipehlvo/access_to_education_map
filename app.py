@@ -92,18 +92,19 @@ inv_print_name = {v: k for k, v in print_name.items()}
 access_df = load_data()
 
 # App components
-st.title("Access to Public High Schools in Brazil")
-st.markdown("This is a dashboard measuring the access to public high schools in each neighborhood in Brazil. The data was collected from the Brazilian Institute of Geography and Statistics (IBGE). See more details in the [GitHub repository](https://github.com/felipehlvo/access_to_education_map)")
-st.markdown("Interesting cities to try: Campinas, Rio de Janeiro, São Paulo")
+st.title("Acesso à escolas públicas do ensino médio no Brasil")
+st.markdown("Os dados foram coletados do IBGE. Veja mais detalhes no [repositório no GitHub](https://github.com/felipehlvo/access_to_education_map)")
+st.markdown("Cidades interessantes para testar: Campinas, Rio de Janeiro, São Paulo")
 
 # Selection of the city using a dropdown
-city = st.selectbox("Select a city", access_df["city_name"].unique())
+city = st.selectbox("Selectione uma cidade", access_df["city_name"].unique())
 
 
-metric_list = [print_name["A"], print_name["Q"], print_name["H"]]
+metric_list = [print_name["A"], print_name["Q"], print_name["H"], 
+print_name["avg_monthly_earnings"], print_name["pct_white"], print_name["density"]]
 
 # Selection of metric
-metric = st.selectbox("Select a metric", metric_list)
+metric = st.selectbox("Selecione uma métrica", metric_list)
 
 # Plot map
 plot_map(city, inv_print_name[metric])
