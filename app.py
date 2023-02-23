@@ -32,14 +32,14 @@ def plot_map(city_name, metric):
                           access_df[access_df["city_name"] == city_name]["microregion_name"].values[0]]
 
     # State data for comparison
-    state_df = access_df[access_df["state"] ==
-                          access_df[access_df["city_name"] == city_name]["state"].values[0]]
+    #state_df = access_df[access_df["state"] ==
+    #                      access_df[access_df["city_name"] == city_name]["state"].values[0]]
 
     # Get latitude and longitude of the first observation
     center = {"lat": subset_df["geometry"].iloc[0].centroid.y,
               "lon": subset_df["geometry"].iloc[0].centroid.x}
 
-    range_color = [state_df[metric].quantile(0.05), state_df[metric].quantile(0.95)]
+    range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
 
     fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
