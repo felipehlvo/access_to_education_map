@@ -32,8 +32,8 @@ def plot_map(city_name, metric):
                           access_df[access_df["city_name"] == city_name]["microregion_name"].values[0]]
 
     # Get state of city to plot metric relative to other cities in state. 
-    state_df = access_df[access_df["state_name"] ==
-                          access_df[access_df["city_name"] == city_name]["state_name"].values[0]]
+    state_df = access_df[access_df["state"] ==
+                          access_df[access_df["city_name"] == city_name]["state"].values[0]]
 
     # Get latitude and longitude of the first observation
     center = {"lat": subset_df["geometry"].iloc[0].centroid.y,
