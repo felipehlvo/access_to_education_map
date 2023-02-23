@@ -36,12 +36,14 @@ def plot_map(city_name, metric):
 
     range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
 
-    fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
+    fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=subset_df[metric].rank(pct=True),
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
                                hover_data=["neighborhood_name"],
                                width=1000, height=800,
                                labels=print_name,
-                               color_continuous_scale="RdYlGn", range_color=range_color)
+                               color_continuous_scale="RdYlGn", 
+                               #range_color=range_color
+                               )
     fig.update_layout(
         # Figure style
         title_text="title",
