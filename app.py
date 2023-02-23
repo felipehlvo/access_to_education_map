@@ -30,11 +30,16 @@ def plot_map(city_name, metric):
     # Get subset of data
     subset_df = access_df[access_df["microregion_name"] ==
                           access_df[access_df["city_name"] == city_name]["microregion_name"].values[0]]
+
+    # State data for comparison
+    state_df = access_df[access_df["state"] ==
+                          access_df[access_df["city_name"] == city_name]["state"].values[0]]
+
     # Get latitude and longitude of the first observation
     center = {"lat": subset_df["geometry"].iloc[0].centroid.y,
               "lon": subset_df["geometry"].iloc[0].centroid.x}
 
-    range_color = [access_df[metric].quantile(0.05), access_df[metric].quantile(0.95)]
+    range_color = [state_df[metric].quantile(0.05), state_df[metric].quantile(0.95)]
 
     fig = px.choropleth_mapbox(subset_df, geojson=subset_df, locations=subset_df.index, color=metric,
                                mapbox_style="open-street-map", opacity=0.5, center=center, zoom=10,
@@ -59,10 +64,19 @@ def plot_map(city_name, metric):
         len = .3,
         tickvals=range_color,
         ticktext=["Low", "High"],
+
+        # Hover data
+        hoverlabel=dict(
+        bgcolor="white",
+        font_size=16,
+        font_family="Rockwell"
+    )
         ))
 
     
-    fig.update_traces(marker_line_width=0)
+    fig.update_traces(
+        marker_line_width=0,
+        hovertemplate = 'GDP: %{x} <br>Life Expectancy: %{y}')
     st.plotly_chart(fig, use_container_width=True)
 
 
