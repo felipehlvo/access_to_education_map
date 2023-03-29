@@ -7,10 +7,9 @@ data/local/
 data/raw/
 notebooks/Including\ quality.ipynb
 *.DS_Store
-# Created by 
-https://www.toptal.com/developers/gitignore/api/macos,python,jupyternotebooks
-# Edit at 
-https://www.toptal.com/developers/gitignore?templates=macos,python,jupyternotebooks
+maps.qgz
+
+Resources/EBEST22_Visualizacao_com_Python.ipynb
 
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
