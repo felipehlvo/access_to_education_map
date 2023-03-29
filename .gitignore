@@ -1,12 +1,11 @@
 *.tex
-/Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Simple\ Access\ 
-Metric.ipynb 
-/Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Simple\ Access\ 
-Metric\ copy.ipynb
+/Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Simple\ Access\ Metric.ipynb 
+/Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Simple\ Access\ Metric\ copy.ipynb
 /Users/feliphlvo/Documents/Minerva/Capstone/notebooks/summary.tex 
 /Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Access\ Metric.ipynb 
 data/local/
 data/raw/
+/Users/feliphlvo/Documents/Minerva/Capstone/notebooks/Including\ quality.ipynb
 *.DS_Store
 # Created by 
 https://www.toptal.com/developers/gitignore/api/macos,python,jupyternotebooks
