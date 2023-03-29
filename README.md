@@ -3,7 +3,7 @@ An interactive map measuring spatial access to public high schools in Brazil.
 
 ## Demo App
 
-[Mapa do Ensino Médio](https://felipehlvo-access-to-education-map-app-b097xc.streamlit.app)
+[Mapa do Ensino Médio](https://felipehlvo-access-to-education-map-app-u0pbl8.streamlit.app/)
 
 ## Repository Structure
 
