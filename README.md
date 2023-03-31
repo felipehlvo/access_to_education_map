@@ -1,6 +1,8 @@
 # Mapa do Ensino Médio 📚
 An interactive map measuring spatial access to public high schools in Brazil.
 
+![screenshot](https://github.com/felipehlvo/access_to_education_map/raw/main/Resources/Mapa%20to%20Ensino%20Medio%20Screenshot.png)
+
 ## Demo App
 
 [Mapa do Ensino Médio](https://felipehlvo-access-to-education-map-app-u0pbl8.streamlit.app/)
@@ -22,6 +24,7 @@ An interactive map measuring spatial access to public high schools in Brazil.
 |dem_census_XXX.zip | data on the Demographic Census (split for because they are too large) |
 
 **notebooks**
+
 | File | Content |
 | ------------- | ------------- |
 | Data Importing.ipynb | Notebook used to download the data form Base Dos Dados |
