@@ -90,11 +90,11 @@ print_name_br = {
 "n_students":"Número de estudantes",
 "n_classes":"Número de turmas",
 "A": "Acesso",
-"Q": "Qualidate",
-"H": "Acessor ajustado pela qualidade",
+"Q": "Qualidade",
+"H": "Acesso ajustado pela qualidade",
 "avg_monthly_earnings": "Renda mensal (R$)",
 "density": "Densidade (habitantes/km^2)",
-"pct_white": "% brancos",}
+"pct_white": "% Brancos",}
 
 inv_print_name = {v: k for k, v in print_name.items()}
 
@@ -105,11 +105,11 @@ access_df = load_data()
 
 # App components
 st.title("Acesso à escolas públicas do ensino médio no Brasil")
-st.markdown("Os dados foram coletados do IBGE. Veja mais detalhes no [repositório no GitHub](https://github.com/felipehlvo/access_to_education_map)")
+st.markdown("Os dados foram coletados do IBGE. Veja mais detalhes no [repositório do GitHub](https://github.com/felipehlvo/access_to_education_map)")
 st.markdown("Cidades interessantes para testar: Campinas, Rio de Janeiro, São Paulo")
 
 # Selection of the city using a dropdown
-city = st.selectbox("Selectione uma cidade", access_df["city_name"].unique())
+city = st.selectbox("Selecione uma cidade", access_df["city_name"].unique())
 
 
 metric_list = [print_name_br["A"], print_name_br["Q"], print_name_br["H"], 
